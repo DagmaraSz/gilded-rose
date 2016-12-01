@@ -37,7 +37,7 @@ describe GildedRose do
     it "knows Sulfuras, being a legendary item, never decreases in quality" do
       items = [Item.new("Sulfuras, Hand of Ragnaros", 0, 10)]
       GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 10
+      expect(items[0].quality).to eq 11
     end
 
     it "knows Sulfuras, being a legendary item, never has to be sold" do
