@@ -16,32 +16,52 @@ describe GildedRose do
       expect(items[0].quality).to eq 3
     end
 
-    xit "never reduces quality of item below 0" do
-
+    it "never reduces quality of item below 0" do
+      items = [Item.new("foo", 0, 0)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 0
     end
 
-    xit "increases the quality of Aged Brie as it gets older" do
-
+    it "increases the quality of Aged Brie as it gets older" do
+      items = [Item.new("Aged Brie", 6, 5)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 6
     end
 
-    xit "never increases the quality of an item above 50" do
-
+    it "never increases the quality of an item above 50" do
+      items = [Item.new("Aged Brie", 6, 50)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 50
     end
 
-    xit "knows Sulfuras, being a legendary item, never has to be sold or decreases in Quality" do
-
+    it "knows Sulfuras, being a legendary item, never decreases in quality" do
+      items = [Item.new("Sulfuras, Hand of Ragnaros", 0, 10)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 10
     end
 
-    xit "increases quality of Backstage Passes by 2 when there are 10 days or less left" do
-
+    it "knows Sulfuras, being a legendary item, never has to be sold" do
+      items = [Item.new("Sulfuras, Hand of Ragnaros", 3, 10)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].sell_in).to eq 3
     end
 
-    xit "increases quality of Backstage Passes by 3 when there are 5 days or less" do
-
+    it "increases quality of Backstage Passes by 2 when there are 10 days or less left" do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 10)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 12
     end
 
-    xit "drops quality of Backstage Passes to 0 after the concert" do
+    it "increases quality of Backstage Passes by 3 when there are 5 days or less" do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 10)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 13
+    end
 
+    it "drops quality of Backstage Passes to 0 after the concert" do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 10)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 0
     end
 
     xit "degrades the quality of conjured items twice as fast as normal items" do
